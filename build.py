@@ -35,8 +35,8 @@ for offset,(sid,short,title,desc,symbol,color) in enumerate(themes):
  lore=array(p,'const records=')
  items=array(q,'const items=')
  core=array(p,'\nconst core=') if '\nconst core=' in p else array(p,'if(active){\nprint(')
- races=array(p,'const races=') if sid=='dnd' and 'const races=' in p else []
- if races:
+ races=array(p,'const races=') if sid in ['dnd','warhammer'] and 'const races=' in p else []
+ if races and sid=='dnd':
   levels=[dict(r, key='DND·'+race['name']+'·'+r['career']+'·'+r['rank'],
       race=race['name'],raceBody=race['body'],baseBody=r['body'],
       menuPath=['DND','等级',race['name'],r['career'],r['rank']],
@@ -68,9 +68,7 @@ for system in catalog:
   for other in catalog:
    if other is system and row['kind']=='level':
     parts.append(dict(text=other['core'],category='system'))
-    if system['id']=='warhammer':
-     parts.append(dict(text='【玩家选择】\n'+row['keyword'],selection=True))
-    if system['id'] in ['coc','dnd']:
+    if system['id'] in ['coc','dnd','warhammer']:
      heading='【玩家身份】'+row['key']
     elif system['id']=='occult':
      heading='【'+(row['displayTitle'] or row['group']+'之'+row['name'])+'】'
@@ -79,12 +77,7 @@ for system in catalog:
     parts.extend([dict(text=heading),dict(text=row['baseBody'] or row['body'],identity=True)])
     if row['raceBody']:
      parts.append(dict(text='【种族：'+row['race']+'】\n'+row['raceBody']))
-    selected_lore=row['lore'] or (other['lore'] if system['id']=='warhammer' else [])
-    parts.extend(dict(text='【'+l['title']+'】\n'+l['body']) for l in selected_lore)
-   elif other is system and system['id']=='warhammer':
-    # 战锤模板在单独提到战锤道具时也输出体系总述与相应基础资料。
-    parts.append(dict(text=other['core'],category='system'))
-    selected_lore=[l for l in other['lore'] if any(a.lower() in row['keyword'].lower() for a in l.get('aliases',[]))] or other['lore']
+    selected_lore=row['lore']
     parts.extend(dict(text='【'+l['title']+'】\n'+l['body']) for l in selected_lore)
    selected_items=[r for r in other['records'] if r['kind']=='item' and
        (any('【'+key+'】' in row['keyword'] for key in r['keys']) or

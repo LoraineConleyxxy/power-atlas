@@ -4,9 +4,11 @@
 
 **访问：https://loraineconleyxxy.github.io/power-atlas/**
 
-**v1.9 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.9.html#occult-level-16**
+**v1.10 DND 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.10.html#dnd-level-89**
 
-**COC 人类审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.9.html#coc-level-21**
+**COC 人类审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.10.html#coc-level-21**
+
+DND 按九大种族 → 十二职业 → 七档等级点选，共 756 种身份组合。初阶爆墙、进阶爆楼、高阶爆街、大师爆城、传奇爆国、史诗爆星、神话恒星；同档采用统一攻防定义。种族与职业保留简短提示，演绎承接 DND 知识与人物设定。页面可选择种族并查看完整发送正文。
 
 COC 人类收录学者、侦探、神话巫师、时空术士、死灵术士、幻梦术士六条路线，共34个身份。四条施术路线大师阶爆星、深层阶恒星。COC 身份详情可查看当前单项关键词发送给 AI 的完整正文，目录标出人类、眷族与神祇。
 
@@ -23,7 +25,7 @@ COC 人类收录学者、侦探、神话巫师、时空术士、死灵术士、�
 仅需 Python 标准库。将最新版成品文件作为输入：
 
 ```sh
-python3 build.py --worldbook path/to/_自用力量体系.json --quickreply path/to/_自用力量体系_快速回复_v1.2.json
+python3 build.py --worldbook path/to/_自用力量体系.json --quickreply path/to/_自用力量体系_快速回复_v1.3.json
 ```
 
 提交生成的 `index.html` 和 `downloads/` 中的最新版文件。GitHub Pages 从 `main` 分支根目录发布，无前端构建依赖。

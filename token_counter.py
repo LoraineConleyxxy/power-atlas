@@ -32,6 +32,10 @@ PROFILES = [
          source='https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/utils/tokenCalculation.ts'),
     dict(id='kimi', name='Kimi K2', method='采用公开 Kimi K2 分词器，按正文分段计数。',
          source='https://huggingface.co/moonshotai/Kimi-K2-Instruct/blob/main/tokenization_kimi.py'),
+    dict(id='deepseek', name='DeepSeek V3', method='采用官方公开的 DeepSeek V3 分词器，按正文分段计数。',
+         source='https://huggingface.co/deepseek-ai/DeepSeek-V3/blob/main/tokenizer.json'),
+    dict(id='glm', name='GLM 4.5', method='采用官方公开的 GLM 4.5 分词器，按正文分段计数。',
+         source='https://huggingface.co/zai-org/GLM-4.5/blob/main/tokenizer.json'),
 ]
 
 KIMI_PATTERN = '|'.join([
@@ -55,6 +59,10 @@ class Counter:
         claude_path = asset('claude-legacy-hf.json', 'https://raw.githubusercontent.com/SillyTavern/SillyTavern/release/src/tokenizers/claude.json')
         kimi_path = asset('kimi-k2.model', 'https://huggingface.co/moonshotai/Kimi-K2-Instruct/resolve/main/tiktoken.model')
         self.claude = Tokenizer.from_file(str(claude_path))
+        self.deepseek = Tokenizer.from_file(str(asset('deepseek-v3.json',
+            'https://huggingface.co/deepseek-ai/DeepSeek-V3/resolve/main/tokenizer.json')))
+        self.glm = Tokenizer.from_file(str(asset('glm-4.5.json',
+            'https://huggingface.co/zai-org/GLM-4.5/resolve/main/tokenizer.json')))
         ranks = {}
         for line in kimi_path.read_bytes().splitlines():
             token, rank = line.split()
@@ -69,7 +77,9 @@ class Counter:
         ascii_units = sum(ord(c) <= 127 for c in text)
         return dict(claude=len(self.claude.encode(text, add_special_tokens=False).ids),
             gemini=math.floor(ascii_units / 4 + (units - ascii_units) * 1.5),
-            kimi=len(self.kimi.encode_ordinary(text)))
+            kimi=len(self.kimi.encode_ordinary(text)),
+            deepseek=len(self.deepseek.encode(text, add_special_tokens=False).ids),
+            glm=len(self.glm.encode(text, add_special_tokens=False).ids))
 
 def attach_counts(catalog, grades):
     counter = Counter()
@@ -91,4 +101,4 @@ def attach_counts(catalog, grades):
                         totals[profile['id']][part['category']] += count[profile['id']]
                 variants[grade] = totals
             row['tokenCounts'] = variants
-        print(system['short'] + '：已生成三种计数方式及可切换量级的计数。', flush=True)
+        print(system['short'] + '：已生成' + str(len(PROFILES)) + '种计数方式及可切换量级的计数。', flush=True)

@@ -9,9 +9,10 @@ Gemini: ASCII / non-ASCII character heuristic used by Google's Gemini CLI,
 https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/utils/tokenCalculation.ts
 Copyright Google LLC, Apache-2.0. The implementation below counts plain text only.
 
-Kimi: Kimi-K2-Instruct vocabulary and splitting pattern published by Moonshot AI:
-https://huggingface.co/moonshotai/Kimi-K2-Instruct/blob/main/tokenization_kimi.py
-Copyright Moonshot AI, Modified MIT license (see that model's LICENSE).
+Kimi: Kimi-K3 vocabulary and splitting pattern published by Moonshot AI:
+https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/tokenization_kimi.py
+The splitting pattern is unchanged from Kimi K2 and retains its Modified MIT notice.
+K3 vocabulary is cached locally; it is not redistributed with the page.
 
 Sections are counted independently, including separators. Results are estimates
 of the displayed worldbook text; chat-message wrappers are not added.
@@ -30,12 +31,12 @@ PROFILES = [
          source='https://github.com/anthropics/anthropic-tokenizer-typescript'),
     dict(id='gemini', name='Gemini', method='采用 Gemini CLI 的字符估算法，中文等非 ASCII 字符按较宽裕的系数估算。',
          source='https://github.com/google-gemini/gemini-cli/blob/main/packages/core/src/utils/tokenCalculation.ts'),
-    dict(id='kimi', name='Kimi K2', method='采用公开 Kimi K2 分词器，按正文分段计数。',
-         source='https://huggingface.co/moonshotai/Kimi-K2-Instruct/blob/main/tokenization_kimi.py'),
-    dict(id='deepseek', name='DeepSeek V3', method='采用官方公开的 DeepSeek V3 分词器，按正文分段计数。',
-         source='https://huggingface.co/deepseek-ai/DeepSeek-V3/blob/main/tokenizer.json'),
-    dict(id='glm', name='GLM 4.5', method='采用官方公开的 GLM 4.5 分词器，按正文分段计数。',
-         source='https://huggingface.co/zai-org/GLM-4.5/blob/main/tokenizer.json'),
+    dict(id='kimi', name='Kimi K3', method='采用官方 Kimi K3 普通文本分词器；普通词表与切分规则沿用 K2，按正文分段计数。',
+         source='https://huggingface.co/moonshotai/Kimi-K3/blob/f831ab66814297da540d832a5235f8e904f29d06/tokenization_kimi.py'),
+    dict(id='deepseek', name='DeepSeek V4.1', method='采用官方 DeepSeek V4.1-Flash 分词器，按正文分段计数。',
+         source='https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/dba1be0a40aa45a94ad051997016db3960a90277/tokenizer.json'),
+    dict(id='glm', name='GLM 5.3', method='采用官方 GLM 5.3 分词器，按正文分段计数。',
+         source='https://huggingface.co/zai-org/GLM-5.3/blob/aca966e4e02791568aa6a4ced368624b3d897f42/tokenizer.json'),
 ]
 
 KIMI_PATTERN = '|'.join([
@@ -57,17 +58,17 @@ class Counter:
                 path.write_bytes(data)
             return path
         claude_path = asset('claude-legacy-hf.json', 'https://raw.githubusercontent.com/SillyTavern/SillyTavern/release/src/tokenizers/claude.json')
-        kimi_path = asset('kimi-k2.model', 'https://huggingface.co/moonshotai/Kimi-K2-Instruct/resolve/main/tiktoken.model')
+        kimi_path = asset('kimi-k3.model', 'https://huggingface.co/moonshotai/Kimi-K3/resolve/f831ab66814297da540d832a5235f8e904f29d06/tiktoken.model')
         self.claude = Tokenizer.from_file(str(claude_path))
-        self.deepseek = Tokenizer.from_file(str(asset('deepseek-v3.json',
-            'https://huggingface.co/deepseek-ai/DeepSeek-V3/resolve/main/tokenizer.json')))
-        self.glm = Tokenizer.from_file(str(asset('glm-4.5.json',
-            'https://huggingface.co/zai-org/GLM-4.5/resolve/main/tokenizer.json')))
+        self.deepseek = Tokenizer.from_file(str(asset('deepseek-v4.1.json',
+            'https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/resolve/dba1be0a40aa45a94ad051997016db3960a90277/tokenizer.json')))
+        self.glm = Tokenizer.from_file(str(asset('glm-5.3.json',
+            'https://huggingface.co/zai-org/GLM-5.3/resolve/aca966e4e02791568aa6a4ced368624b3d897f42/tokenizer.json')))
         ranks = {}
         for line in kimi_path.read_bytes().splitlines():
             token, rank = line.split()
             ranks[base64.b64decode(token)] = int(rank)
-        self.kimi = tiktoken.Encoding(name='kimi-k2-text', pat_str=KIMI_PATTERN,
+        self.kimi = tiktoken.Encoding(name='kimi-k3-text', pat_str=KIMI_PATTERN,
             mergeable_ranks=ranks, special_tokens={})
 
     @lru_cache(maxsize=None)

@@ -4,13 +4,15 @@
 
 **访问：https://loraineconleyxxy.github.io/power-atlas/**
 
-**v1.12 DND 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.12.html#dnd-level-54**
+**v1.13 DND 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.13.html#dnd-level-54**
 
-**COC 人类审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.12.html#coc-level-21**
+**COC 人类审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.13.html#coc-level-21**
 
-**COC 眷族审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.12.html#coc-level-34**
+**COC 眷族审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.13.html#coc-level-34**
 
-**COC 神祇审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.12.html#coc-level-93**
+**COC 神祇审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.13.html#coc-level-93**
+
+v1.13 在每个身份正文中保留一行明确的【战斗力】，要求按所选档位展开攻防，以具体动作和结果表现，叙事省略量级名称。网页直接显示该行，累计技能继续保留。
 
 v1.12 补入 DND 十二职业的212项分阶段技能，各阶段正文完整累计此前技能；四体系共用一份通用量级定义。
 

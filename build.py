@@ -26,7 +26,7 @@ for offset,(sid,short,title,desc,symbol,color) in enumerate(themes):
  levels=array(p,'const levels=')
  lore=array(p,'const records=')
  items=array(q,'const items=')
- core=json.JSONDecoder().raw_decode(p.split('if(active){\nprint(',1)[1])[0]
+ core=array(p,'\nconst core=') if '\nconst core=' in p else array(p,'if(active){\nprint(')
  groupLevels=list(dict.fromkeys(r['career'] for r in levels))
  groupItems=list(dict.fromkeys(k.split('·')[1] for r in items for k in r['keys']))
  records=[]

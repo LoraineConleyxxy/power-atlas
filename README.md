@@ -4,9 +4,9 @@
 
 **访问：https://loraineconleyxxy.github.io/power-atlas/**
 
-**v1.7 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.7.html#occult-level-11**
+**v1.9 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.9.html#occult-level-16**
 
-本次密教的 52 个身份与 33 项器物均有逐项正文。页面显示内容版本和更新时间，返回页面时会检查新版；密教详情中的“查看发送给 AI 的正文”按当前单项关键词列出相应正文。
+密教的 52 个身份与 33 项器物均有逐项正文。v1.9 补充了十三相的 39 种通晓者、长生者、具名者与另外 12 相司辰，刃之司辰保留已有完整正文。各等级展开感知、技艺、交锋、庇护、全力场景与日常关系。页面显示内容版本和更新时间，返回页面时会检查新版；密教详情中的“查看发送给 AI 的正文”按当前单项关键词列出相应正文。
 
 - 按体系、职业、等级、道具类别与量级浏览，支持文字搜索。
 - 查看等级或道具的完整说明及相关原作资料。
@@ -19,7 +19,7 @@
 仅需 Python 标准库。将最新版成品文件作为输入：
 
 ```sh
-python3 build.py --worldbook path/to/_自用力量体系.json --quickreply path/to/_自用力量体系_快速回复_v1.1.json
+python3 build.py --worldbook path/to/_自用力量体系.json --quickreply path/to/_自用力量体系_快速回复_v1.2.json
 ```
 
 提交生成的 `index.html` 和 `downloads/` 中的最新版文件。GitHub Pages 从 `main` 分支根目录发布，无前端构建依赖。

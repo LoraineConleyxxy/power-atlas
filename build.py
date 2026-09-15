@@ -2,6 +2,9 @@
 from pathlib import Path
 from datetime import datetime
 import argparse, json, base64, shutil, hashlib, ast, re
+from token_counter import attach_counts, PROFILES
+
+GRADES=['爆砖','爆墙','爆屋','爆楼','爆街','爆城','爆国','大陆','地表','爆星','恒星','星系','宇宙结构','单体宇宙','多元','无限多元','高阶多元','无限盒子及更高迭代','指数塔','超指数塔','论外']
 
 HERE = Path(__file__).resolve().parent
 parser=argparse.ArgumentParser()
@@ -61,10 +64,10 @@ for offset,(sid,short,title,desc,symbol,color) in enumerate(themes):
 # 单项关键词对应的世界书正文：沿现有模板的输出顺序组装，不执行EJS。
 for system in catalog:
  for row in system['records']:
-  parts=[dict(text=book['entries']['0']['content'])]
+  parts=[dict(text=book['entries']['0']['content'],category='general')]
   for other in catalog:
    if other is system and row['kind']=='level':
-    parts.append(dict(text=other['core']))
+    parts.append(dict(text=other['core'],category='system'))
     if system['id']=='warhammer':
      parts.append(dict(text='【玩家选择】\n'+row['keyword'],selection=True))
     if system['id'] in ['coc','dnd']:
@@ -73,21 +76,27 @@ for system in catalog:
      heading='【'+(row['displayTitle'] or row['group']+'之'+row['name'])+'】'
     else:
      heading='【'+row['group']+'·'+row['name']+'】'
-    parts.extend([dict(text=heading),dict(text=row['body'],identity=True)])
+    parts.extend([dict(text=heading),dict(text=row['baseBody'] or row['body'],identity=True)])
+    if row['raceBody']:
+     parts.append(dict(text='【种族：'+row['race']+'】\n'+row['raceBody']))
     selected_lore=row['lore'] or (other['lore'] if system['id']=='warhammer' else [])
     parts.extend(dict(text='【'+l['title']+'】\n'+l['body']) for l in selected_lore)
    elif other is system and system['id']=='warhammer':
     # 战锤模板在单独提到战锤道具时也输出体系总述与相应基础资料。
-    parts.append(dict(text=other['core']))
+    parts.append(dict(text=other['core'],category='system'))
     selected_lore=[l for l in other['lore'] if any(a.lower() in row['keyword'].lower() for a in l.get('aliases',[]))] or other['lore']
     parts.extend(dict(text='【'+l['title']+'】\n'+l['body']) for l in selected_lore)
    selected_items=[r for r in other['records'] if r['kind']=='item' and
        (any('【'+key+'】' in row['keyword'] for key in r['keys']) or
         any(alias.lower() in row['keyword'].lower() for alias in r['aliases']))]
    if selected_items:
-    parts.append(dict(text=other['itemCore']))
+    parts.append(dict(text=other['itemCore'],category='system'))
     parts.extend(dict(text='【'+r['name']+'】\n'+r['body']) for r in selected_items)
+  for part in parts:
+   part.setdefault('category','keyword')
   row['promptParts']=parts
+
+attach_counts(catalog,GRADES)
 
 for group in catalog:
  missing=[r['id'] for r in group['records'] if not r['body'].startswith('【战斗力】'+r['grade']+'（')]
@@ -103,10 +112,10 @@ for src,label in [(args.worldbook,'世界书'),(args.quickreply,'快速回复')]
                        base64=base64.b64encode(src.read_bytes()).decode(),size=round(src.stat().st_size/1024)))
 data=dict(version=book['version'],catalog=catalog,downloads=downloads,license=book.get('license',''),
           general=book['entries']['0']['content'],repo='https://github.com/LoraineConleyxxy/power-atlas',
-          grades=['爆砖','爆墙','爆屋','爆楼','爆街','爆城','爆国','大陆','地表','爆星','恒星','星系','宇宙结构','单体宇宙','多元','无限多元','高阶多元','无限盒子及更高迭代','指数塔','超指数塔','论外'])
+          grades=GRADES,tokenCounters=PROFILES)
 data['sources']=json.loads(args.sources.read_text()).get('sources',{}) if args.sources else {}
 data['updatedAt']=book.get('updatedAt',datetime.now().astimezone().isoformat(timespec='seconds'))
-data['buildId']=hashlib.sha256(args.worldbook.read_bytes()+args.quickreply.read_bytes()+(HERE/'src/index.template.html').read_bytes()+Path(__file__).read_bytes()).hexdigest()[:12]
+data['buildId']=hashlib.sha256(args.worldbook.read_bytes()+args.quickreply.read_bytes()+(HERE/'src/index.template.html').read_bytes()+Path(__file__).read_bytes()+(HERE/'token_counter.py').read_bytes()).hexdigest()[:12]
 retained={f['name'] for f in downloads}
 for old in (HERE/'downloads').glob('_自用力量体系*.json'):
  if old.name not in retained: old.unlink()

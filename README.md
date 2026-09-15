@@ -4,17 +4,19 @@
 
 **访问：https://loraineconleyxxy.github.io/power-atlas/**
 
-**DND 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.11.html#dnd-level-89**
+**v1.12 DND 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.12.html#dnd-level-54**
 
-**COC 人类审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.11.html#coc-level-21**
+**COC 人类审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.12.html#coc-level-21**
 
-**COC 眷族审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.11.html#coc-level-34**
+**COC 眷族审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.12.html#coc-level-34**
 
-**COC 神祇审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.11.html#coc-level-93**
+**COC 神祇审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.12.html#coc-level-93**
+
+v1.12 补入 DND 十二职业的212项分阶段技能，各阶段正文完整累计此前技能；四体系共用一份通用量级定义。
 
 v1.11 新增93条 COC 非人身份：18种眷族的54个层次、5个特殊个体、20位神祇本体与14个有名化身。连同34个人类身份，COC共127项。网页可按人类、眷族、神祇筛选，再查看具体种类、神名与完整发送正文。配套快速回复v1.4。
 
-DND 按九大种族 → 十二职业 → 七档等级点选，共 756 种身份组合。初阶爆墙、进阶爆楼、高阶爆街、大师爆城、传奇爆国、史诗爆星、神话恒星；同档采用统一攻防定义。种族与职业保留简短提示，演绎承接 DND 知识与人物设定。页面可选择种族并查看完整发送正文。
+DND 按九大种族 → 十二职业 → 七档等级点选，共 756 种身份组合。初阶爆墙、进阶爆楼、高阶爆街、大师爆城、传奇爆国、史诗爆星、神话恒星；同档采用统一攻防定义。种族与职业保留简短提示，十二职业的技能按七档逐步解锁，高阶正文完整累计此前技能。演绎承接 DND 知识与人物设定，页面可选择种族并查看完整发送正文。
 
 COC 人类收录学者、侦探、神话巫师、时空术士、死灵术士、幻梦术士六条路线，共34个身份。四条施术路线大师阶爆星、深层阶恒星。COC 身份详情可查看当前单项关键词发送给 AI 的完整正文，目录标出人类、眷族与神祇。
 
@@ -25,6 +27,8 @@ COC 人类收录学者、侦探、神话巫师、时空术士、死灵术士、�
 - 逐项复制关键词，或组合一项身份、多个道具和量级后一起复制。
 - 下载最新的单一合并世界书和快速回复。
 - 页面无第三方脚本、无追踪、无在线依赖；下载 `index.html` 后可离线使用。
+
+四体系的全部身份采用量级短句，通用尺度、攻防与配套规则集中到常驻总表。DND 删除重复的独立战斗力段落，其他体系的具体施力与战斗场景继续保留。
 
 ## 更新展示内容
 
@@ -49,3 +53,5 @@ python3 build.py --worldbook path/to/_自用力量体系.json --quickreply path/
 This work includes material from the System Reference Document 5.2.1 (“SRD 5.2.1”) by Wizards of the Coast LLC, available at https://www.dndbeyond.com/srd. The SRD 5.2.1 is licensed under the Creative Commons Attribution 4.0 International License, available at https://creativecommons.org/licenses/by/4.0/legalcode.
 
 其余内容未附统一开放许可。
+
+This work includes material taken from the System Reference Document 5.1 (“SRD 5.1”) by Wizards of the Coast LLC and available at https://dnd.wizards.com/resources/systems-reference-document. The SRD 5.1 is licensed under the Creative Commons Attribution 4.0 International License available at https://creativecommons.org/licenses/by/4.0/legalcode.

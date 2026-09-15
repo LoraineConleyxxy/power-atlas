@@ -28,13 +28,11 @@ for offset,(sid,short,title,desc,symbol,color) in enumerate(themes):
  items=array(q,'const items=')
  core=array(p,'\nconst core=') if '\nconst core=' in p else array(p,'if(active){\nprint(')
  races=array(p,'const races=') if sid=='dnd' and 'const races=' in p else []
- combat=array(p,'const combatByGrade=') if races else {}
- fallback=array(p,'const fallbackCombat=') if races else ''
  if races:
   levels=[dict(r, key='DND·'+race['name']+'·'+r['career']+'·'+r['rank'],
       race=race['name'],raceBody=race['body'],baseBody=r['body'],
       menuPath=['DND','等级',race['name'],r['career'],r['rank']],
-      body=r['body']+'\n\n【种族：'+race['name']+'】\n'+race['body']+'\n\n【战斗力定义】\n'+combat[r['defaultGrade']])
+      body=r['body']+'\n\n【种族：'+race['name']+'】\n'+race['body'])
       for race in races for r in levels]
  def level_group(r):
   return ' / '.join(r['menuPath'][2:4]) if sid=='coc' and r.get('menuPath') else r['career']
@@ -52,7 +50,7 @@ for offset,(sid,short,title,desc,symbol,color) in enumerate(themes):
       groups=list(dict.fromkeys(k.split('·')[1] for k in r['keys'])),grade=r['defaultGrade'],rating=r['rating'],
       body=r['body'],keyword='持有道具：【'+r['keys'][0]+'】',lore=[],sources=r.get('sources',[]),source=r.get('source',''),revision=r.get('revision',''),updatedAt=r.get('updatedAt','')))
  catalog.append(dict(id=sid,short=short,title=title,description=desc,symbol=symbol,color=color,
-                     core=core,races=[r['name'] for r in races],combatByGrade=combat,fallbackCombat=fallback,
+                     core=core,races=[r['name'] for r in races],
                      groupLevels=groupLevels,groupItems=groupItems,records=records))
 
 downloads=[]

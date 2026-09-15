@@ -4,6 +4,10 @@
 
 **访问：https://loraineconleyxxy.github.io/power-atlas/**
 
+**v1.7 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.7.html#occult-level-11**
+
+本次密教的 52 个身份与 33 项器物均有逐项正文。页面显示内容版本和更新时间，返回页面时会检查新版；密教详情中的“查看发送给 AI 的正文”按当前单项关键词列出相应正文。
+
 - 按体系、职业、等级、道具类别与量级浏览，支持文字搜索。
 - 查看等级或道具的完整说明及相关原作资料。
 - 逐项复制关键词，或组合一项身份、多个道具和量级后一起复制。
@@ -19,6 +23,8 @@ python3 build.py --worldbook path/to/_自用力量体系.json --quickreply path/
 ```
 
 提交生成的 `index.html` 和 `downloads/` 中的最新版文件。GitHub Pages 从 `main` 分支根目录发布，无前端构建依赖。
+
+构建同时生成 `release.json` 与一个版本专属的 `review-v*.html`，将它们一并提交，以便刷新和版本审查。目录仅保留最新审查页。
 
 世界书导入 SillyTavern 的世界书界面；快速回复导入快速回复扩展。启用 ST-Prompt-Template 处理世界书中的模板。页面复制的关键词须发送到聊天中生效。
 

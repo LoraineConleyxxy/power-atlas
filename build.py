@@ -27,11 +27,14 @@ for offset,(sid,short,title,desc,symbol,color) in enumerate(themes):
  lore=array(p,'const records=')
  items=array(q,'const items=')
  core=array(p,'\nconst core=') if '\nconst core=' in p else array(p,'if(active){\nprint(')
- groupLevels=list(dict.fromkeys(r['career'] for r in levels))
+ def level_group(r):
+  return ' / '.join(r['menuPath'][2:4]) if sid=='coc' and r.get('menuPath') else r['career']
+ groupLevels=list(dict.fromkeys(level_group(r) for r in levels))
  groupItems=list(dict.fromkeys(k.split('·')[1] for r in items for k in r['keys']))
  records=[]
  for i,r in enumerate(levels):
-  records.append(dict(id=f'{sid}-level-{i}',kind='level',name=r['rank'],group=r['career'],groups=[r['career']],
+  records.append(dict(id=f'{sid}-level-{i}',kind='level',name=r['rank'],group=level_group(r),groups=[level_group(r)],
+      key=r['key'],category=r.get('category',''),menuPath=r.get('menuPath',[]),
       grade=r['defaultGrade'],rating=r['rating'],body=r['body'],keyword='我的力量：【'+r['key']+'】',
       lore=[lore[j] for j in r['sections']],sources=r.get('sources',[]),revision=r.get('revision',''),updatedAt=r.get('updatedAt','')))
  for i,r in enumerate(items):
@@ -52,7 +55,7 @@ data=dict(version=book['version'],catalog=catalog,downloads=downloads,license=bo
           grades=['爆砖','爆墙','爆屋','爆楼','爆街','爆城','爆国','大陆','地表','爆星','恒星','星系','宇宙结构','单体宇宙','多元','无限多元','高阶多元','无限盒子及更高迭代','指数塔','超指数塔','论外'])
 data['sources']=json.loads(args.sources.read_text()).get('sources',{}) if args.sources else {}
 data['updatedAt']=book.get('updatedAt',datetime.now().astimezone().isoformat(timespec='seconds'))
-data['buildId']=hashlib.sha256(args.worldbook.read_bytes()+args.quickreply.read_bytes()).hexdigest()[:12]
+data['buildId']=hashlib.sha256(args.worldbook.read_bytes()+args.quickreply.read_bytes()+(HERE/'src/index.template.html').read_bytes()+Path(__file__).read_bytes()).hexdigest()[:12]
 retained={f['name'] for f in downloads}
 for old in (HERE/'downloads').glob('_自用力量体系*.json'):
  if old.name not in retained: old.unlink()

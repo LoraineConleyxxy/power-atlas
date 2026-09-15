@@ -53,6 +53,12 @@ for offset,(sid,short,title,desc,symbol,color) in enumerate(themes):
                      core=core,races=[r['name'] for r in races],
                      groupLevels=groupLevels,groupItems=groupItems,records=records))
 
+for group in catalog:
+ missing=[r['id'] for r in group['records'] if not r['body'].startswith('【战斗力】'+r['grade']+'（')]
+ if missing:
+  raise ValueError('待发布条目缺少战斗力短句或档位不一致：'+', '.join(missing))
+ print(group['short']+'：'+str(len(group['records']))+'项，战斗力短句全部齐全。')
+
 downloads=[]
 for src,label in [(args.worldbook,'世界书'),(args.quickreply,'快速回复')]:
  dest=HERE/'downloads'/src.name

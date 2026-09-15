@@ -4,13 +4,15 @@
 
 **访问：https://loraineconleyxxy.github.io/power-atlas/**
 
-**v1.15 DND 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.15.html#dnd-level-55**
+**v1.17 DND 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.17.html#dnd-level-55**
 
-**COC 人类审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.15.html#coc-level-21**
+**COC 人类审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.17.html#coc-level-21**
 
-**COC 眷族审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.15.html#coc-level-34**
+**COC 眷族审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.17.html#coc-level-34**
 
-**COC 神祇审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.15.html#coc-level-93**
+**COC 神祇审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.17.html#coc-level-93**
+
+v1.17 已核对全部320项身份、59件器物和6项兼容旧身份：正文首行统一明确显示【战斗力】，网页完整保留首行，发布时核对全部条目。
 
 v1.15 将 DND 每个职业阶段整理为五项代表技能，明确仅作能力参考；高阶换出部分基础技能，增强具体攻防、穿透、追索、移动与持续承压表现。每个身份继续明确显示【战斗力】短句。
 

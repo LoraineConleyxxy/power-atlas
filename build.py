@@ -1,7 +1,7 @@
 """Create the standalone catalogue from two explicit release files; never execute EJS."""
 from pathlib import Path
 from datetime import datetime
-import argparse, json, base64, shutil, hashlib
+import argparse, json, base64, shutil, hashlib, ast, re
 
 HERE = Path(__file__).resolve().parent
 parser=argparse.ArgumentParser()
@@ -14,6 +14,11 @@ qr=json.loads(args.quickreply.read_text())
 
 def array(content,marker):
  return json.JSONDecoder().raw_decode(content.split(marker,1)[1].lstrip())[0]
+
+def item_intro(content,system):
+ expression=content.split('if(chosen.length){',1)[1].split('print(',1)[1].split(');',1)[0]
+ return ''.join(system if token=='sys' else ast.literal_eval(token)
+                for token in re.findall(r"'(?:\\.|[^'\\])*'|\bsys\b",expression)).strip()
 
 catalog=[]
 themes=[('occult','密教','密教与司辰之书','梦、准则与漫宿','◇','#986b32'),
@@ -41,17 +46,48 @@ for offset,(sid,short,title,desc,symbol,color) in enumerate(themes):
  records=[]
  for i,r in enumerate(levels):
   records.append(dict(id=f'{sid}-level-{i}',kind='level',name=r['rank'],group=level_group(r),groups=[level_group(r)],
-      key=r['key'],category=r.get('category',''),menuPath=r.get('menuPath',[]),
+      key=r['key'],displayTitle=r.get('displayTitle',''),category=r.get('category',''),menuPath=r.get('menuPath',[]),
       race=r.get('race',''),raceBody=r.get('raceBody',''),baseBody=r.get('baseBody',''),
       grade=r['defaultGrade'],rating=r['rating'],body=r['body'],keyword='我的力量：【'+r['key']+'】',
       lore=[lore[j] for j in r['sections']],sources=r.get('sources',[]),revision=r.get('revision',''),updatedAt=r.get('updatedAt','')))
  for i,r in enumerate(items):
   records.append(dict(id=f'{sid}-item-{i}',kind='item',name=r['title'],group=r['keys'][0].split('·')[1],
       groups=list(dict.fromkeys(k.split('·')[1] for k in r['keys'])),grade=r['defaultGrade'],rating=r['rating'],
-      body=r['body'],keyword='持有道具：【'+r['keys'][0]+'】',lore=[],sources=r.get('sources',[]),source=r.get('source',''),revision=r.get('revision',''),updatedAt=r.get('updatedAt','')))
+      body=r['body'],keys=r['keys'],aliases=r.get('aliases',[]),keyword='持有道具：【'+r['keys'][0]+'】',lore=[],sources=r.get('sources',[]),source=r.get('source',''),revision=r.get('revision',''),updatedAt=r.get('updatedAt','')))
  catalog.append(dict(id=sid,short=short,title=title,description=desc,symbol=symbol,color=color,
-                     core=core,races=[r['name'] for r in races],
+                     core=core,itemCore=item_intro(q,short),lore=lore,races=[r['name'] for r in races],
                      groupLevels=groupLevels,groupItems=groupItems,records=records))
+
+# 单项关键词对应的世界书正文：沿现有模板的输出顺序组装，不执行EJS。
+for system in catalog:
+ for row in system['records']:
+  parts=[dict(text=book['entries']['0']['content'])]
+  for other in catalog:
+   if other is system and row['kind']=='level':
+    parts.append(dict(text=other['core']))
+    if system['id']=='warhammer':
+     parts.append(dict(text='【玩家选择】\n'+row['keyword'],selection=True))
+    if system['id'] in ['coc','dnd']:
+     heading='【玩家身份】'+row['key']
+    elif system['id']=='occult':
+     heading='【'+(row['displayTitle'] or row['group']+'之'+row['name'])+'】'
+    else:
+     heading='【'+row['group']+'·'+row['name']+'】'
+    parts.extend([dict(text=heading),dict(text=row['body'],identity=True)])
+    selected_lore=row['lore'] or (other['lore'] if system['id']=='warhammer' else [])
+    parts.extend(dict(text='【'+l['title']+'】\n'+l['body']) for l in selected_lore)
+   elif other is system and system['id']=='warhammer':
+    # 战锤模板在单独提到战锤道具时也输出体系总述与相应基础资料。
+    parts.append(dict(text=other['core']))
+    selected_lore=[l for l in other['lore'] if any(a.lower() in row['keyword'].lower() for a in l.get('aliases',[]))] or other['lore']
+    parts.extend(dict(text='【'+l['title']+'】\n'+l['body']) for l in selected_lore)
+   selected_items=[r for r in other['records'] if r['kind']=='item' and
+       (any('【'+key+'】' in row['keyword'] for key in r['keys']) or
+        any(alias.lower() in row['keyword'].lower() for alias in r['aliases']))]
+   if selected_items:
+    parts.append(dict(text=other['itemCore']))
+    parts.extend(dict(text='【'+r['name']+'】\n'+r['body']) for r in selected_items)
+  row['promptParts']=parts
 
 for group in catalog:
  missing=[r['id'] for r in group['records'] if not r['body'].startswith('【战斗力】'+r['grade']+'（')]

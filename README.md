@@ -4,15 +4,23 @@
 
 **访问：https://loraineconleyxxy.github.io/power-atlas/**
 
-**v1.18 战锤审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.18.html#warhammer-level-6**
+**v1.18 战锤审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#warhammer-level-6**
 
-**DND 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.18.html#dnd-level-55**
+**DND 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#dnd-level-55**
 
-**COC 人类审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.18.html#coc-level-21**
+**COC 人类审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#coc-level-21**
 
-**COC 眷族审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.18.html#coc-level-34**
+**COC 眷族审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#coc-level-34**
 
-**COC 神祇审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.18.html#coc-level-93**
+**COC 神祇审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#coc-level-93**
+
+v1.19 新增灵能者七档：Iota、Zeta、Delta、Alpha、Alpha+、Gamma+、Zeta+。每档包含战斗力短句、具体力量表现与五项技能参考；融入《行商浪人》的五类灵能，另增三个领航员阶段、更新三个帝国灵能岗位、新增16件装备。战锤现有144个身份与28件器物，配套快速回复v1.7。
+
+- [灵能七档](https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#warhammer-level-19)
+- [Alpha+ 完整正文](https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#warhammer-level-23)
+- [行商浪人新增道具](https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#warhammer-item-12)
+
+资料参考：[灵能能力](https://roguetrader.wh40k.wiki/Psyker_Powers)、[领航员](https://roguetrader.wh40k.wiki/Navigator)、[装备](https://roguetrader.wh40k.wiki/Equipment)。世界书中的默认量级、合并档位与高阶场景服务于跨世界 RP。
 
 v1.18 重建战锤目录：10个种族／存在分类、44条道路、134个原职级或具体身份。采用“种族 → 道路 → 职级／身份”点选，每项含明确战斗力短句、职责与五项能力参考。阿斯塔特采用侦察兵、战斗兄弟、老兵、军士、副连长、连长、战团长；其他道路使用自身的职级或专业身份。配套快速回复v1.6。
 
@@ -41,7 +49,7 @@ COC 人类收录学者、侦探、神话巫师、时空术士、死灵术士、�
 仅需 Python 标准库。将最新版成品文件作为输入：
 
 ```sh
-python3 build.py --worldbook path/to/_自用力量体系.json --quickreply path/to/_自用力量体系_快速回复_v1.6.json
+python3 build.py --worldbook path/to/_自用力量体系.json --quickreply path/to/_自用力量体系_快速回复_v1.7.json
 ```
 
 提交生成的 `index.html` 和 `downloads/` 中的最新版文件。GitHub Pages 从 `main` 分支根目录发布，无前端构建依赖。

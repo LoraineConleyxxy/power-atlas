@@ -4,21 +4,27 @@
 
 **访问：https://loraineconleyxxy.github.io/power-atlas/**
 
-**v1.18 战锤审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#warhammer-level-6**
+**v1.18 战锤审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.20.html#warhammer-level-6**
 
-**DND 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#dnd-level-55**
+**DND 审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.20.html#dnd-level-55**
 
-**COC 人类审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#coc-level-21**
+**COC 人类审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.20.html#coc-level-21**
 
-**COC 眷族审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#coc-level-34**
+**COC 眷族审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.20.html#coc-level-34**
 
-**COC 神祇审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#coc-level-93**
+**COC 神祇审查入口：https://loraineconleyxxy.github.io/power-atlas/review-v1.20.html#coc-level-93**
+
+v1.20 补齐战锤其余131个身份：每项有具体战斗表现、日常感知、道路技艺和职级特长，合计五项能力参考。上一版13项灵能与领航身份继续保留，当前144个身份均有完整演绎正文；36个旧关键词同步采用相应新正文。基因原体与恶魔原体均为爆星，菜单和正文一致。新增30件器物、重写早期12件，战锤器物增至58件。配套快速回复v1.8。
+
+- [基因原体：爆星](https://loraineconleyxxy.github.io/power-atlas/review-v1.20.html#warhammer-level-136)
+- [阿斯塔特：战团长](https://loraineconleyxxy.github.io/power-atlas/review-v1.20.html#warhammer-level-6)
+- [本次新增军械与道具](https://loraineconleyxxy.github.io/power-atlas/review-v1.20.html#warhammer-item-28)
 
 v1.19 新增灵能者七档：Iota、Zeta、Delta、Alpha、Alpha+、Gamma+、Zeta+。每档包含战斗力短句、具体力量表现与五项技能参考；融入《行商浪人》的五类灵能，另增三个领航员阶段、更新三个帝国灵能岗位、新增16件装备。战锤现有144个身份与28件器物，配套快速回复v1.7。
 
-- [灵能七档](https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#warhammer-level-19)
-- [Alpha+ 完整正文](https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#warhammer-level-23)
-- [行商浪人新增道具](https://loraineconleyxxy.github.io/power-atlas/review-v1.19.html#warhammer-item-12)
+- [灵能七档](https://loraineconleyxxy.github.io/power-atlas/review-v1.20.html#warhammer-level-19)
+- [Alpha+ 完整正文](https://loraineconleyxxy.github.io/power-atlas/review-v1.20.html#warhammer-level-23)
+- [行商浪人新增道具](https://loraineconleyxxy.github.io/power-atlas/review-v1.20.html#warhammer-item-12)
 
 资料参考：[灵能能力](https://roguetrader.wh40k.wiki/Psyker_Powers)、[领航员](https://roguetrader.wh40k.wiki/Navigator)、[装备](https://roguetrader.wh40k.wiki/Equipment)。世界书中的默认量级、合并档位与高阶场景服务于跨世界 RP。
 
@@ -49,7 +55,7 @@ COC 人类收录学者、侦探、神话巫师、时空术士、死灵术士、�
 仅需 Python 标准库。将最新版成品文件作为输入：
 
 ```sh
-python3 build.py --worldbook path/to/_自用力量体系.json --quickreply path/to/_自用力量体系_快速回复_v1.7.json
+python3 build.py --worldbook path/to/_自用力量体系.json --quickreply path/to/_自用力量体系_快速回复_v1.8.json
 ```
 
 提交生成的 `index.html` 和 `downloads/` 中的最新版文件。GitHub Pages 从 `main` 分支根目录发布，无前端构建依赖。
